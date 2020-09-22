@@ -1,1 +1,2 @@
-ml GCC/9.3.0 GSL/2.6
+ml GCC/9.3.0 GSL/2.6 # compiler and scientific library.
+ml OpenMPI/4.0.3 Valgrind/3.15.0 # valgrind for memory leaks.

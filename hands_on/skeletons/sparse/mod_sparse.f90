@@ -8,8 +8,20 @@ MODULE mod_sparse
      INTEGER :: index = 0
      REAL (dk) :: value
      TYPE (sparse), POINTER :: next => null()
+
+
+     contains
+         final :: delete_sparse ! add finalizer.
+
+
   END TYPE sparse
-  ! FIXME - add operator overload
+
+
+  interface operator (*) ! add operator overload
+      procedure :: multiply_sparse
+  end interface operator (*)
+
+
   INTERFACE write
      PROCEDURE write
      PROCEDURE write_rank1
@@ -51,7 +63,38 @@ CONTAINS
        END IF
     END DO
   END SUBROUTINE set_element
-  ! FIXME add module procedure for Matrix-Vector Multiply
+  
+
+  function multiply_sparse( mat, vec ) result(r)! add module procedure for Matrix-Vector Multiply
+      type( sparse ), intent( in ), target :: mat(:)
+      real( dk ), intent( in )             :: vec(:)
+      real( dk )                           :: r( size(vec) ) 
+      integer                              :: ix
+      type( sparse ), pointer              :: p_mat
+      
+      if ( size(mat) == size( vec ) ) then ! if matrix multiplication is possible.
+          do ix = 1, size(mat)
+              r( ix ) = 0.0_dk
+              p_mat => mat( ix ) ! get 1st element of the linked list that represents a row.
+              
+              do ! loop over the linked list.
+                  if ( associated( p_mat ) ) then
+                      ! if indices (column numbers) are within bounds:
+                      if ( p_mat%index > 0 .and. p_mat%index <= size( vec ) ) then
+                          r( ix ) = r( ix ) + p_mat%value * vec( p_mat%index )
+                      end if
+                      p_mat => p_mat%next
+                  else
+                      exit
+                  end if
+              end do
+          end do
+      end if
+
+
+  end function multiply_sparse
+
+
   SUBROUTINE write(obj)
     TYPE (sparse), INTENT (IN), TARGET :: obj
     TYPE (sparse), POINTER :: p_obj
@@ -80,4 +123,13 @@ CONTAINS
        CALL write(obj(i))
     END DO
   END SUBROUTINE write_rank1
+
+
+  elemental subroutine delete_sparse( mat )
+      type( sparse ), intent( inout ) :: mat
+
+      if ( associated( mat%next ) ) deallocate( mat%next )
+  end subroutine delete_sparse
+
+
 END MODULE mod_sparse

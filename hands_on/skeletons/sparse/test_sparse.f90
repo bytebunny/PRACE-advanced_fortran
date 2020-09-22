@@ -8,6 +8,7 @@ PROGRAM test_sparse
   REAL (dk), ALLOCATABLE :: x(:)
 
   ALLOCATE (sa(ndim), x(ndim))
+  write (*, *) 'Before initialization:'
   CALL write(sa)
   DO i = 1, ndim
      CALL set_element(sa(i), 1, 1.0_dk)
@@ -16,6 +17,7 @@ PROGRAM test_sparse
      CALL set_element(sa(i), 2, -1.0_dk)
      CALL set_element(sa(i), ndim-1, -2.0_dk)
   END DO
+  write (*, *) 'After initialization:'
   CALL write(sa)
   x(:) = [ (real(i,dk),i=1,ndim) ]
   x(:) = sa*x
