@@ -1,15 +1,15 @@
 COMPILER=Intel
-COMPILER=NAG
+#COMPILER=NAG
 #COMPILER=GCC
 
 include ../../../make.inc
 
 
 triangular.exe : triangular.o
-	$(F90) $(FOPT) -o $@ $^
+	$(CAF) $(FOPT) -o $@ $^
 
 %.o : %.f90
-	$(F90) $(FOPT) -c -o $@ $^
+	$(CAF) $(FOPT) -c -o $@ $^
 
 
 clean :
