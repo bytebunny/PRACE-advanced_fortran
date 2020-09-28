@@ -1,0 +1,27 @@
+
+Sep 2014: 14.0.1 compiler in course room
+Processor: Intel(R) Core(TM) i5-3570 CPU @ 3.40GHz
+
+Solution 1:  raytrace_caf.f90
+Solution 2:  raytrace_caf2.f90
+
+Timing in seconds
+Solution / Size:  1 / 4000     2 / 4000
+Tasks
+1                  120.8        6.82         
+2                   54.4        3.95
+4                    7.35       2.53
+
+
+SuperMUC with Intel 14.0.3 (IO to HOME)
+Processor: Sandy Bridge 
+Intel(R) Xeon(R) CPU E5-2680 0 @ 2.70GHz
+
+Timing in seconds
+Solution / Size:  1 / 4000     2 / 4000
+Tasks
+1                  23.24       10.31
+2                  41.1         5.74 
+4                  13.3         3.62
+8                  10.7         2.38      
+16                              2.55

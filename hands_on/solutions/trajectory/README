@@ -1,0 +1,10 @@
+Compilers that produce the correct result:
+* NAG 6.1
+* Intel 18.0
+
+Compilers that produce an incorrect result:
+* Intel 16.0 and 17.0 (incompletely written data)
+* GCC up to 7.2       (incompletely written data)
+* PGI 17 (crash)
+
+Workaround: add a DEALLOCATE statement before reassigning the object.

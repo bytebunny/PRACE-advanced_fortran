@@ -1,0 +1,10 @@
+Processing int.dat
+   have an integer with value 7
+Processing t2.dat
+   have a derived type ... hang on
+   have a t2 with values  2.100  0.400  1.100 -0.400  0.100  1.000
+Processing t1.dat
+   have a derived type ... hang on
+   have a t1 with values  2.100  1.100  0.100
+Processing real.dat
+   have a real with value  3.141
